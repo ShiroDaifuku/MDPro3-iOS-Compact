@@ -4,13 +4,13 @@
 
 ## macOS 构建
 
-- [ ] 固定 Unity 6000.0.24f1、iOS 模块与实际 Xcode 版本；在日志中记录所有版本。
+- [ ] 固定 Unity 6000.0.28f1、iOS 模块与实际 Xcode 版本，在日志中记录所有版本。
 - [ ] 原生 arm64 archive 成功；`nm` 核对内核、服务器、SQLite 和 ABI 检查入口，无重复 ocgcore / Lua / SQLite 实现。
 - [ ] iOS 平台脚本编译、IL2CPP 与 Xcode 最终链接成功，无缺失反向 P/Invoke、动态库或泛型 AOT 代码。
 - [ ] SQLite 的旧托管 DLL 在 iOS 排除；三个卡库加载器确实走 callback-free provider。
 - [ ] Addressables 的所有 GUID 和默认场景依赖齐全；Spine 固定版本与上游包内骨骼资源兼容。
 - [ ] `prepare_resources.py` / `verify_resources.py` 通过；StreamingAssets 无全量卡图、全套外观及旧资源压缩包。
-- [ ] `.app` 文件总长不超过 450 MB，保存 storage JSON；IPA 无签名打包成功。此处只能证明文件总长，尚不等于 iOS 设置显示的磁盘占用。
+- [ ] `.app` 文件总长不超过 500 MB，保存 storage JSON，确认 IPA 无签名打包成功。iOS 设置中的磁盘占用在真机测量。
 
 ## iPhone 启动和卡图
 

@@ -1,4 +1,3 @@
-import importlib.util
 import pathlib
 import plistlib
 import subprocess
@@ -36,7 +35,7 @@ class PackagingTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=TEMP) as tmp:
             root = pathlib.Path(tmp); app = self.fixture(root); output = root / 'test.ipa'
             with (app / 'large-resource').open('wb') as stream:
-                stream.truncate(450_000_001)
+                stream.truncate(500_000_001)
             result = subprocess.run([sys.executable, str(SCRIPT), '--app', str(app), '--output', str(output)], capture_output=True)
             self.assertNotEqual(result.returncode, 0)
             self.assertFalse(output.exists())

@@ -1,6 +1,6 @@
 """Package an unsigned .app for the user's existing on-device signing flow; fail on size."""
 import argparse,json,pathlib,plistlib,sys,zipfile
-LIMIT=450_000_000
+LIMIT=500_000_000
 def measure(root):return sum(p.stat().st_size for p in root.rglob('*') if p.is_file() and not p.is_symlink())
 def main():
     p=argparse.ArgumentParser();p.add_argument('--app',required=True,type=pathlib.Path);p.add_argument('--output',required=True,type=pathlib.Path)

@@ -9,7 +9,6 @@ namespace MDPro3.Compact
         // Decimal bytes match iOS Settings. A 100 MB margin remains below the requested 1 GB.
         public const long TotalLimit = 1000000000;
         public const long OperatingTarget = 900000000;
-        public const long BaseBuildLimit = 450000000;
         public const long ImageCacheLimit = 300000000;
         public const long UserDataBudget = 50000000;
         public const long UpdateReserve = 100000000;

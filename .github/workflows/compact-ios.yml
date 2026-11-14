@@ -104,7 +104,8 @@ jobs:
       - name: Link unsigned device application
         if: ${{ !inputs.native_only }}
         run: |
-          xcodebuild -project Artifacts/iOS/Unity-iPhone.xcodeproj -scheme Unity-iPhone -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath Artifacts/DerivedData CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build > TestResults/xcodebuild.log 2>&1
+          set -o pipefail
+          xcodebuild -project Artifacts/iOS/Unity-iPhone.xcodeproj -scheme Unity-iPhone -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath Artifacts/DerivedData CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build 2>&1 | tee TestResults/xcodebuild.log | awk '/^(CompileC |Ld |ProcessInfoPlistFile |Validate |\*\* BUILD)|[Ee]rror:|undefined symbol/ { print; fflush() }'
           APP=$(find Artifacts/DerivedData/Build/Products/Release-iphoneos -maxdepth 1 -name '*.app' -type d -print -quit)
           python3 Tools/Compact/package_ipa.py --app "$APP" --output Artifacts/MDPro3-Compact-unsigned.ipa
       - uses: actions/upload-artifact@v4
