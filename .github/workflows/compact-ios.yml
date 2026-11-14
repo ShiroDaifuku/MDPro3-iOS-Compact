@@ -92,6 +92,15 @@ jobs:
           fi
           tar -xzf /tmp/mdpro3-export.tar.gz -C Artifacts/iOS
           cp Native/build-ios/libMDPro3Native.a Artifacts/iOS/Libraries/
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          project = Path('Artifacts/iOS/Unity-iPhone.xcodeproj/project.pbxproj')
+          text = project.read_text()
+          # The Windows exporter embeds its local symbol utility path in the Xcode build phase.
+          text = re.sub(r' --usymtool-path=\\"[A-Za-z]:.*?\\"', '', text)
+          project.write_text(text)
+          PY
       - name: Link unsigned device application
         if: ${{ !inputs.native_only }}
         run: |
