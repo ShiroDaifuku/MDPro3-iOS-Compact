@@ -51,6 +51,11 @@ namespace MDPro3.Editor
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS);
 
             var settings = AddressableAssetSettingsDefaultObject.Settings;
+            // Use Addressables' player staging path. The upstream desktop profile writes to Platforms/.
+            settings.profileSettings.SetValue(settings.activeProfileId, "Local.BuildPath",
+                "[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]");
+            settings.profileSettings.SetValue(settings.activeProfileId, "Local.LoadPath",
+                "{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]");
             foreach (var group in settings.groups.Where(g => g != null && (g.Name == "Icon" || g.Name == "Sound")))
             {
                 var missing = group.entries.Where(e => string.IsNullOrEmpty(AssetDatabase.GUIDToAssetPath(e.guid))).ToArray();
@@ -69,6 +74,10 @@ namespace MDPro3.Editor
                 options = BuildOptions.None
             });
             if (report.summary.result != BuildResult.Succeeded) throw new BuildFailedException(report.summary.result.ToString());
+            var embeddedAddressables = Path.Combine(output, "Data", "Raw", "aa");
+            if (!Directory.Exists(embeddedAddressables)
+                || !Directory.EnumerateFiles(embeddedAddressables, "scene_assets_*.bundle", SearchOption.AllDirectories).Any())
+                throw new BuildFailedException("The Xcode export is missing the local SceneMain Addressables bundle.");
             Debug.Log("Xcode project exported. Final .app storage gate is enforced after xcodebuild, not against generated C++ source size.");
         }
 
