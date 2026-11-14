@@ -241,7 +241,7 @@ namespace Percy
         public int LScale;
         public int RScale;
         public int LinkMarker;
-#if UNITY_IOS && !UNITY_EDITOR
+#if UNITY_IOS
         public int RuleCode;
 #endif
 
