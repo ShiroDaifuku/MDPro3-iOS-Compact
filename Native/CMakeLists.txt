@@ -36,6 +36,10 @@ target_compile_definitions(mdpro3_runtime PRIVATE YGOPRO_SERVER_MODE SERVER_ZIP_
   NO__IRR_COMPILE_WITH_MOUNT_ARCHIVE_LOADER_ NO__IRR_COMPILE_WITH_PAK_ARCHIVE_LOADER_
   NO__IRR_COMPILE_WITH_NPK_ARCHIVE_LOADER_ NO__IRR_COMPILE_WITH_TAR_ARCHIVE_LOADER_
   NO__IRR_COMPILE_WITH_WAD_ARCHIVE_LOADER_)
+if(CMAKE_SYSTEM_NAME STREQUAL "iOS")
+  # Lua's ISO fallback calls system(), which is unavailable on iOS.
+  set_property(SOURCE "${YGO}/lua/src/loslib.c" APPEND PROPERTY COMPILE_DEFINITIONS LUA_USE_IOS)
+endif()
 target_include_directories(mdpro3_runtime PRIVATE "${CORE}" "${YGO}/lua/src" "${YGO}/sqlite3"
   "${YGO}/ygoserver" "${YGO}/ygoserver/spmemvfs" "${YGO}/irrlicht/include"
   "${YGO}/irrlicht/source/Irrlicht")
