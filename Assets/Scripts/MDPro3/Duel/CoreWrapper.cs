@@ -299,15 +299,6 @@ namespace Percy
         public static extern void start_duel(IntPtr pduel, uint options);
 
         [DllImport(NativeLibrary, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int get_ai_going_first_second(IntPtr pduel, IntPtr deckname);
-
-        [DllImport(NativeLibrary, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int set_player_going_first_second(IntPtr pduel, int first, IntPtr deckname);
-
-        [DllImport(NativeLibrary, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void set_ai_id(IntPtr pduel, int playerid);
-
-        [DllImport(NativeLibrary, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern void end_duel(IntPtr pduel);
 
         [DllImport(NativeLibrary, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
