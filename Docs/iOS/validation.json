@@ -1,0 +1,49 @@
+{
+  "date_utc": "2026-11-06T14:20:41.418311+00:00",
+  "upstream_commit": "e177cd8d53092ae9249e37b38d3cef0040e41095",
+  "target_unity": "6000.0.24f1",
+  "windows_validation_unity": "6000.0.28f1",
+  "production_tests": {
+    "compile_exit_code": 0,
+    "compile_output": "﻿﻿",
+    "run_exit_code": 0,
+    "run_output": "PASS: 37 assertions; quota, pinning, restart, cancellation, stream limits, JPEG validation.\n"
+  },
+  "ios_symbol_compilation": {
+    "exit_code": 0,
+    "note": "Windows reference assemblies with iOS player symbols; not an iOS build."
+  },
+  "native_smoke": "50772\n50777\n50792\n50801\nPASS: native ABI 80 bytes, protocol 0x1362, three start/stop cycles plus immediate-stop handshake. Duel gameplay remains untested.\n",
+  "packaging_tests": {
+    "tests": 3,
+    "passed": true
+  },
+  "resource_stage": {
+    "asset_revision": "b36a95a24ff1a2f77ca6b9f9e0c30bc3e1cfa4d7",
+    "bundled_asset_bytes": 124616356,
+    "copied_data_bytes": 36625668,
+    "data_files": 523,
+    "card_image_files": 0,
+    "note": "Not final app size. Unity, Addressables and IL2CPP must be measured after Xcode link.",
+    "all_bundles_verified": false
+  },
+  "full_resource_verification": false,
+  "real_prerelease_pack_tested": false,
+  "ipa_built": false,
+  "iphone_tested": false,
+  "github_workflow_executed": false,
+  "logs": {
+    "unity-final-check.log": {
+      "bytes": 3464148,
+      "sha256": "2d1c341979b604f4ffcb9b57662d8c7af7467e438999cf157415347270bf4e51"
+    },
+    "native-build-final.log": {
+      "bytes": 305,
+      "sha256": "409ad8b6789df427ab1b0294b13767c1c146f3d63a6f54ecaa707a0072f72f6a"
+    },
+    "native-smoke.log": {
+      "bytes": 160,
+      "sha256": "a6764c92736d4a28d9fd968572af2763800e67d3df7b49fab63b50ec9ec9db7b"
+    }
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "revision": "b36a95a24ff1a2f77ca6b9f9e0c30bc3e1cfa4d7",
+  "files": [
+    {
+      "path": "iOS/MasterDuel/AvatarStand/AvatarStand_002_far",
+      "bytes": 115172,
+      "sha256": "c17e79923682342d8014fbb0020461b8cf6cdacce65c4a45992417463cf00478"
+    },
+    {
+      "path": "iOS/MasterDuel/AvatarStand/AvatarStand_002_near",
+      "bytes": 114154,
+      "sha256": "63caf6051d75c08c7218499fc41bc53e8f2913969b3569218846d2f3279191a3"
+    },
+    {
+      "path": "iOS/MasterDuel/Background/Back0001/Back0001",
+      "bytes": 780251,
+      "sha256": "f94e81e381bc3ebfae0616564a142de0a8f7a9f411b82a914d121ab9cb10f81c"
+    },
+    {
+      "path": "iOS/MasterDuel/Built-in/duel",
+      "bytes": 64311862,
+      "sha256": "9c844e67d267cb30c96534dec215b1be832f2c9a2c91205ae706189505ebafc4"
+    },
+    {
+      "path": "iOS/MasterDuel/Built-in/materials",
+      "bytes": 1198213,
+      "sha256": "653f9803db67099e2d2e1665f5604c0235e909610fb17c72abe21678e0a0145d"
+    },
+    {
+      "path": "iOS/MasterDuel/Built-in/outduel",
+      "bytes": 30450618,
+      "sha256": "d6fa2af2fd71cddfda6ef0293b82093b99c120cf3fd658934b854dfc6ff72600"
+    },
+    {
+      "path": "iOS/MasterDuel/Built-in/shaders",
+      "bytes": 635692,
+      "sha256": "83c52bdd6ae056f3b406f54f46f90222ff5993b2d601c9f47029247a5ee71776"
+    },
+    {
+      "path": "iOS/MasterDuel/Built-in/sprites",
+      "bytes": 1093740,
+      "sha256": "9790ab3867508443171850a8940de895e14ffed732e93d7a443260e276264294"
+    },
+    {
+      "path": "iOS/MasterDuel/Built-in/textures",
+      "bytes": 438167,
+      "sha256": "ee0b99d3e03d43f590535b2e044a6100d64476c42957c7f0506fd6844433c2d9"
+    },
+    {
+      "path": "iOS/MasterDuel/Frame/ProfileFrameMat1030001",
+      "bytes": 22714,
+      "sha256": "2c3471563bbc6dd3e340820416d6bde0245a45a3a550063148489e5fb6daec38"
+    },
+    {
+      "path": "iOS/MasterDuel/Grave/Grave_002_far",
+      "bytes": 1537018,
+      "sha256": "3c8abc1c69b2da1c9efafa2dce77a47942781bf2ca513fd0f4d1f2c88d1517b8"
+    },
+    {
+      "path": "iOS/MasterDuel/Grave/Grave_002_near",
+      "bytes": 1309940,
+      "sha256": "da6978ecb58b1ed132e9fe6d5f28fbf7ade05a8c55ee054ac681c09bf9e6146d"
+    },
+    {
+      "path": "iOS/MasterDuel/Mat/Mat_002_far",
+      "bytes": 9612035,
+      "sha256": "3b41798d206e57a44b3b3c9da766aea17c522634e078976fcefd218ada6456be"
+    },
+    {
+      "path": "iOS/MasterDuel/Mat/Mat_002_near",
+      "bytes": 9625343,
+      "sha256": "e952a97f51f8f322c705c36de7d467437e666ef73a32d6df658c4e8099700f4c"
+    },
+    {
+      "path": "iOS/MasterDuel/Mate/M09755_Model",
+      "bytes": 2418327,
+      "sha256": "97fefd42ca4d16bc90a5da229ecc353d1168b85417167790c296756c0f17e20b"
+    },
+    {
+      "path": "iOS/MasterDuel/Material/CardInfoColorMat",
+      "bytes": 31446,
+      "sha256": "a5c1e468ef4119d568f1728c7a81a88998866b9aafe12a63d41fa4e278243c7b"
+    },
+    {
+      "path": "iOS/MasterDuel/Material/GUI_CommonShopButton_N",
+      "bytes": 37687,
+      "sha256": "326b7e736a5af00ac07494ef241f25947d2ee9439d56113618b92516e25c846e"
+    },
+    {
+      "path": "iOS/MasterDuel/Material/GUI_CommonShopButton_N_Over",
+      "bytes": 47113,
+      "sha256": "faf3a4b0f9762fef52c73f4378c0497be34215ccff596b01893d88b79c3ff82d"
+    },
+    {
+      "path": "iOS/MasterDuel/Protector/1070001/1070001",
+      "bytes": 36915,
+      "sha256": "d81b4015f10652b338b5ebc7627a5614418e60b1f60f24751a5eadaa983d6daf"
+    },
+    {
+      "path": "iOS/MasterDuel/Protector/1070001/ProtectorIcon1070001",
+      "bytes": 486302,
+      "sha256": "33e504fe3fc411748fb1ffd453d21ac85747dbfae7031f3f1d367ab296b60e3e"
+    },
+    {
+      "path": "iOS/MasterDuel/Protector/1070002/1070002",
+      "bytes": 36915,
+      "sha256": "d81b4015f10652b338b5ebc7627a5614418e60b1f60f24751a5eadaa983d6daf"
+    },
+    {
+      "path": "iOS/MasterDuel/Protector/1070002/ProtectorIcon1070002",
+      "bytes": 276732,
+      "sha256": "b1db5fd7170b6686340c4aadcaed5669e8e549c8eb3c276ecff0dfb816cbdb04"
+    }
+  ]
+}

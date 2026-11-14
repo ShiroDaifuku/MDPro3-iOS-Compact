@@ -1,0 +1,111 @@
+name: Compact iOS IPA (experimental)
+on:
+  workflow_dispatch:
+    inputs:
+      exported_project_url:
+        description: URL of a Windows Unity export archive, optionally encrypted
+        required: false
+        type: string
+      native_only:
+        description: Validate native archive without building the app
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: compact-ios-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  portable-checks:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Test production cache, pack filter, SQLite and replay seed code
+        run: |
+          python3 -m unittest discover -s Tests/Compact -p 'test_*.py'
+          mkdir -p TestResults/ci
+          dotnet run --project Tests/Compact/CompactTests.csproj -- TestResults/ci/cache Tests/Compact/Fixtures/white.jpg Data/locales/zh-CN/cards.cdb
+      - name: Prepare pinned native source
+        run: python3 Tools/Compact/prepare_native.py
+      - name: Link and test native host lifecycle
+        run: |
+          cmake -S Native -B Native/build-linux -DMDPRO3_BUILD_SMOKE=ON -DCMAKE_BUILD_TYPE=Release
+          cmake --build Native/build-linux --parallel 3
+          timeout 30 Native/build-linux/mdpro3_native_smoke
+  ipa:
+    needs: portable-checks
+    runs-on: macos-15-intel
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - name: Record macOS toolchain
+        run: |
+          mkdir -p TestResults
+          sw_vers > TestResults/macos-version.txt
+          xcodebuild -version > TestResults/xcode-version.txt
+          cmake --version > TestResults/cmake-version.txt
+      - name: Prepare source dependencies and pinned compact resources
+        if: ${{ !inputs.native_only && inputs.exported_project_url == '' }}
+        run: |
+          python3 Tools/Compact/prepare_native.py
+          python3 Tools/Compact/prepare_resources.py
+          python3 Tools/Compact/verify_resources.py
+      - name: Build one merged arm64 iOS archive
+        run: |
+          python3 Tools/Compact/prepare_native.py
+          cmake -S Native -B Native/build-ios -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_OSX_DEPLOYMENT_TARGET=15.0 -DCMAKE_BUILD_TYPE=Release
+          cmake --build Native/build-ios --parallel 3
+          mkdir -p Assets/Plugins/iOS TestResults
+          cp Native/build-ios/libMDPro3Native.a Assets/Plugins/iOS/
+          xcrun nm -gU Assets/Plugins/iOS/libMDPro3Native.a > TestResults/native-symbols.txt
+          for symbol in start_server stop_server create_duel_v2 sqlite3_open_v2 mdpro3_card_data_size mdpro3_server_ready; do
+            grep -Eq " _${symbol}$" TestResults/native-symbols.txt || exit 1
+          done
+      - uses: game-ci/unity-builder@v4
+        if: ${{ !inputs.native_only && inputs.exported_project_url == '' }}
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+        with:
+          unityVersion: 6000.0.28f1
+          targetPlatform: iOS
+          buildMethod: MDPro3.Editor.CompactIOSBuild.Export
+          allowDirtyBuild: true
+          versioning: None
+      - name: Unpack Windows Xcode export and install native archive
+        if: ${{ !inputs.native_only && inputs.exported_project_url != '' }}
+        env:
+          EXPORT_URL: ${{ inputs.exported_project_url }}
+          EXPORT_KEY: ${{ secrets.EXPORT_KEY }}
+        run: |
+          curl --fail --location --retry 4 --retry-all-errors "$EXPORT_URL" -o /tmp/mdpro3-export
+          mkdir -p Artifacts/iOS
+          if [[ -n "$EXPORT_KEY" ]]; then
+            openssl enc -d -aes-256-cbc -pbkdf2 -pass env:EXPORT_KEY -in /tmp/mdpro3-export -out /tmp/mdpro3-export.tar.gz
+          else
+            mv /tmp/mdpro3-export /tmp/mdpro3-export.tar.gz
+          fi
+          tar -xzf /tmp/mdpro3-export.tar.gz -C Artifacts/iOS
+          cp Native/build-ios/libMDPro3Native.a Artifacts/iOS/Libraries/
+      - name: Link unsigned device application
+        if: ${{ !inputs.native_only }}
+        run: |
+          xcodebuild -project Artifacts/iOS/Unity-iPhone.xcodeproj -scheme Unity-iPhone -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath Artifacts/DerivedData CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build > TestResults/xcodebuild.log 2>&1
+          APP=$(find Artifacts/DerivedData/Build/Products/Release-iphoneos -maxdepth 1 -name '*.app' -type d -print -quit)
+          python3 Tools/Compact/package_ipa.py --app "$APP" --output Artifacts/MDPro3-Compact-unsigned.ipa
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compact-ios-results
+          path: |
+            Artifacts/*.ipa
+            Artifacts/*.storage.json
+            TestResults/
+            Logs/
+          if-no-files-found: warn
+          retention-days: 7

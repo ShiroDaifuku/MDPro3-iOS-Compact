@@ -1,0 +1,6 @@
+{
+  "name": "MDPro3.AssetExtraction",
+  "includePlatforms": ["Editor"],
+  "defineConstraints": ["MDPRO3_ASSET_EXTRACTION_TOOLS"],
+  "autoReferenced": false
+}

@@ -1,0 +1,11 @@
+<linker>
+  <assembly fullname="Assembly-CSharp">
+    <type fullname="WindBot.*" preserve="all" />
+    <type fullname="WindBot.Game.AI.DeckAttribute" preserve="all" />
+    <type fullname="WindBot.Game.AI.DialogsData" preserve="all" />
+    <type fullname="MDPro3.Data.*" preserve="all" />
+    <type fullname="MDPro3.Compact.CompactBootstrap+Manifest" preserve="all" />
+    <type fullname="MDPro3.Compact.CompactBootstrap+Entry" preserve="all" />
+    <type fullname="MDPro3.Compact.OnDemandCardImages+Hosts" preserve="all" />
+  </assembly>
+</linker>

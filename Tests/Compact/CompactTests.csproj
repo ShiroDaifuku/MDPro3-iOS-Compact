@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="CacheTests.cs" />
+    <Compile Include="../../Assets/Scripts/MDPro3/Compact/BoundedResourceCache.cs" />
+    <Compile Include="../../Assets/Scripts/MDPro3/Compact/CompactStoragePolicy.cs" />
+    <Compile Include="../../Assets/Scripts/MDPro3/Compact/JpegImageInfo.cs" />
+    <Compile Include="../../Assets/Scripts/MDPro3/Compact/LimitedWriteStream.cs" />
+    <Compile Include="../../Assets/Scripts/MDPro3/Compact/PrereleasePackFilter.cs" />
+    <Compile Include="../../Assets/Scripts/MDPro3/Compact/ReadOnlySqlite.cs" />
+    <Compile Include="../../Assets/Scripts/MDPro3/Compact/ReplayRandom.cs" />
+  </ItemGroup>
+</Project>
