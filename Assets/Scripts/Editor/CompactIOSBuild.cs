@@ -76,7 +76,7 @@ namespace MDPro3.Editor
             if (report.summary.result != BuildResult.Succeeded) throw new BuildFailedException(report.summary.result.ToString());
             var embeddedAddressables = Path.Combine(output, "Data", "Raw", "aa");
             if (!Directory.Exists(embeddedAddressables)
-                || !Directory.EnumerateFiles(embeddedAddressables, "scene_assets_*.bundle", SearchOption.AllDirectories).Any())
+                || !Directory.EnumerateFiles(embeddedAddressables, "scene_scenes_scenemain.bundle", SearchOption.AllDirectories).Any())
                 throw new BuildFailedException("The Xcode export is missing the local SceneMain Addressables bundle.");
             Debug.Log("Xcode project exported. Final .app storage gate is enforced after xcodebuild, not against generated C++ source size.");
         }
